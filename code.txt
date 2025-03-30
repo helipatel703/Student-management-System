@@ -1,0 +1,121 @@
+CREATE TABLE student ( 
+    student_id VARCHAR(10) PRIMARY KEY, 
+    student_name VARCHAR(50) NOT NULL, 
+    email VARCHAR(100) NOT NULL, 
+    phone BIGINT NOT NULL, 
+    DOB DATE NULL 
+); 
+ 
+CREATE TABLE teacher ( 
+    teacher_id VARCHAR(10) PRIMARY KEY, 
+    name VARCHAR(50) NOT NULL 
+); 
+
+CREATE TABLE enrollment ( 
+    enrollment_id VARCHAR(10) PRIMARY KEY, 
+    admin_id VARCHAR(10) NOT NULL, 
+    block_id VARCHAR(10) NOT NULL, 
+    student_id VARCHAR(10) NOT NULL, 
+    FOREIGN KEY (block_id) REFERENCES block(block_id), 
+    FOREIGN KEY (student_id) REFERENCES student(student_id) 
+); 
+
+CREATE TABLE block ( 
+    block_id VARCHAR(10) PRIMARY KEY, 
+    block_name VARCHAR(50) NOT NULL, 
+    start_date DATE NOT NULL, 
+    end_date DATE NOT NULL, 
+    year INT NOT NULL, 
+    teacher_id VARCHAR(10) NOT NULL, 
+    FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) 
+); 
+
+CREATE TABLE block_course ( 
+    block_course_id VARCHAR(10) PRIMARY KEY, 
+    course_id VARCHAR(10) NOT NULL, 
+    block_id VARCHAR(10) NOT NULL, 
+    FOREIGN KEY (course_id) REFERENCES course(course_id), 
+    FOREIGN KEY (block_id) REFERENCES block(block_id) 
+); 
+ 
+
+
+--Inserting data into student
+
+INSERT INTO student (student_id, student_name, email, phone, DOB)
+VALUES 
+('S001', 'Alice Johnson', 'alice.johnson@example.com', 9876543210, '2000-05-12'),
+('S002', 'Bob Smith', 'bob.smith@example.com', 9876543211, '2000-07-22'),
+('S003', 'Charlie Brown', 'charlie.brown@example.com', 9876543212, '2001-01-15'),
+('S004', 'Diana Prince', 'diana.prince@example.com', 9876543213, '1999-03-28'),
+('S005', 'Ethan Hunt', 'ethan.hunt@example.com', 9876543214, '2000-08-10'),
+('S006', 'Fiona Green', 'fiona.green@example.com', 9876543215, '2000-11-30'),
+('S007', 'George Harris', 'george.harris@example.com', 9876543216, '2001-02-20'),
+('S008', 'Hannah Lee', 'hannah.lee@example.com', 9876543217, '2000-09-14'),
+('S009', 'Iris West', 'iris.west@example.com', 9876543218, '2001-05-06'),
+('S010', 'James Bond', 'james.bond@example.com', 9876543219, '1998-12-25');
+
+
+--inserting data into teacher table
+
+INSERT INTO teacher (teacher_id, name)
+VALUES 
+('T001', 'Rudhra Rai'),
+('T002', 'Kai Wilson'),
+('T003', 'Michael smith '),
+('T004', 'Sarah Johnson'),
+('T005', 'David Paul'),
+('T006', 'Shasha Miller '),
+('T007', 'Austin Shawn'),
+('T008', 'Shawn Davis'),
+('T009', 'Sweta Patel'),
+('T010', 'Olivia Gray');
+
+
+
+-- Inserting data into the block table
+
+INSERT INTO block (block_id, block_name, start_date, end_date, year, teacher_id)
+VALUES 
+('B001', 'block 1', '2025-01-06', '2025-06-15', 2025, 'T001'),
+('B002', 'block 2', '2025-07-11', '2025-12-20', 2025, 'T002'),
+('B003', 'block 4', '2025-09-18', '2025-06-15', 2025, 'T003'),
+('B004', 'block 3', '2025-02-07', '2025-12-20', 2025, 'T004'),
+('B005', 'block 1', '2025-05-29', '2025-06-15', 2025, 'T005'),
+('B006', 'block 1', '2025-08-11', '2025-12-20', 2025, 'T006'),
+('B007', 'block 3', '2025-05-25', '2025-06-15', 2025, 'T007'),
+('B008', 'block 2', '2025-01-14', '2025-12-20', 2025, 'T008'),
+('B009', 'block 4', '2025-01-39', '2025-06-15', 2025, 'T009'),
+('B010', 'block 2', '2025-09-05', '2025-12-20', 2025, 'T010');
+
+-- Inserting data into the block_course table
+
+INSERT INTO block_course (block_course_id, course_id, block_id)
+VALUES 
+('BC001', 'C001', 'B001'),
+('BC002', 'C002', 'B002'),
+('BC003', 'C003', 'B003'),
+('BC004', 'C004', 'B004'),
+('BC005', 'C005', 'B005'),
+('BC006', 'C006', 'B006'),
+('BC007', 'C007', 'B007'),
+('BC008', 'C008', 'B008'),
+('BC009', 'C009', 'B009'),
+('BC010', 'C010', 'B010');
+
+--Inserting data into the enrollment table
+
+INSERT INTO enrollment (enrollment_id, admin_id, block_id, student_id)
+VALUES 
+('E001', 'A001', 'B001', 'S001'),
+('E002', 'A001', 'B001', 'S002'),
+('E003', 'A002', 'B002', 'S003'),
+('E004', 'A002', 'B002', 'S004'),
+('E005', 'A003', 'B003', 'S005'),
+('E006', 'A003', 'B003', 'S006'),
+('E007', 'A004', 'B004', 'S007'),
+('E008', 'A004', 'B004', 'S008'),
+('E009', 'A005', 'B005', 'S009'),
+('E010', 'A005', 'B005', 'S010');
+
+
